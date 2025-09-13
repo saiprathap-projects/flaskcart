@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="mb-4">Your Cart</h1>
+
+{% if items %}
+<form method="post" action="{{ url_for('cart_update') }}">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th>Line Total</th></tr></thead>
+      <tbody>
+        {% for it in items %}
+        <tr>
+          <td>{{ it.product.name }}</td>
+          <td style="max-width:120px;">
+            <input class="form-control" type="number" min="0" name="qty_{{ it.product.id }}" value="{{ it.qty }}">
+          </td>
+          <td>₹{{ '%.2f'|format(it.product.price) }}</td>
+          <td>₹{{ '%.2f'|format(it.line_total) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr class="fw-bold">
+          <td colspan="3" class="text-end">Total:</td>
+          <td>₹{{ '%.2f'|format(total) }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="d-flex gap-2">
+    <button class="btn btn-outline-secondary" formaction="{{ url_for('cart_clear') }}" formmethod="post">Clear Cart</button>
+    <button class="btn btn-primary" type="submit">Update</button>
+    <a class="btn btn-success ms-auto" href="{{ url_for('checkout') }}">Proceed to Checkout</a>
+  </div>
+</form>
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+{% endblock %}

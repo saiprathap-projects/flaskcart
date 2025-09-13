@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="mb-4">{{ 'New Product' if mode == 'new' else 'Edit Product' }}</h1>
+<form method="post">
+  {{ form.csrf_token }}
+  <div class="mb-3">{{ form.name.label }} {{ form.name(class_="form-control") }}</div>
+  <div class="mb-3">{{ form.description.label }} {{ form.description(class_="form-control", rows=4) }}</div>
+  <div class="mb-3">{{ form.price.label }} {{ form.price(class_="form-control") }}</div>
+  <div class="mb-3">{{ form.stock.label }} {{ form.stock(class_="form-control") }}</div>
+  <div class="mb-3">{{ form.image_url.label }} {{ form.image_url(class_="form-control") }}</div>
+  <button class="btn btn-primary">{{ form.submit.label.text }}</button>
+</form>
+{% endblock %}

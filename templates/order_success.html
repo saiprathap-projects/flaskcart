@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="mb-3">Order Confirmed 🎉</h1>
+<p>Your order #{{ order.id }} has been placed. Total: <b>₹{{ '%.2f'|format(order.total_amount) }}</b></p>
+<a class="btn btn-primary" href="{{ url_for('index') }}">Continue Shopping</a>
+{% endblock %}
